@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import logo from '~/assets/1581704670044-attachment.svg';
+
+const schema = Yup.object().shape({
+    email: Yup.string()
+        .email('Insira um email válido')
+        .required('O campo email é obrigatório'),
+    password: Yup.string().required('A senha é obrigatória')
+});
 
 function SignIn() {
     function handleSubmit(data) {
@@ -11,7 +19,7 @@ function SignIn() {
     return (
         <>
             <img src={logo} alt="GoBarber" />
-            <Form onSubmit={handleSubmit}>
+            <Form schema={schema} onSubmit={handleSubmit}>
                 <Input
                     name="email"
                     type="email"
